@@ -1,0 +1,242 @@
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+.loading{
+    background: #9F9F9F;
+    opacity: 0.5;
+}
+/*  Header  */
+.header {
+    display: flex;
+    background: #F5F5F6;
+    height: 50px;
+    justify-content: space-around;
+    align-items: center;
+    overflow: hidden;
+}
+
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.menu a{
+    margin: 0 10px;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 600;
+    color: #959BA4;
+    letter-spacing: 0.06em;
+}
+
+.menu a:hover {
+    color: black;
+}
+
+.button a{
+    text-decoration: none;
+    color: black;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/*  App Converter  */
+
+.app {
+    width: 641px;
+    margin: 0 auto;
+}
+
+.app h1 {
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 42px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.convert .amount p {
+    font-size: 12px;
+    line-height: 14px;
+    color: #9F9F9F;
+}
+
+.convert > p {
+    font-size: 12px;
+    line-height: 14px;
+    color: #9F9F9F;
+}
+
+.convert .amount {
+    width: 259px;
+    height: 102px;
+    border: 1px solid #E5E5E5;
+    border-radius: 3px;
+    margin-top: 20px;
+}
+
+.container .change_button {
+    width: 36.85px;
+    height: 31.77px;
+}
+
+.convert .currencies {
+    display: flex;
+
+}
+.convert .currencies div{
+    width: 50px;
+    height: 28px;
+    border: 1px solid #E5E5E5;
+    font-size: 12px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.convert .currencies {
+    color: #C6C6C6;
+}
+
+.choosen {
+    background: #833AE0;
+    color: white;
+}
+
+.convert .currencies div:hover {
+    background: #833AE0;
+    color: white;
+    cursor: pointer;
+    transition: background .5s;
+}
+
+.convert .currencies div:first-child{
+    border-radius: 3px 0 0 3px;
+}
+
+.convert .currencies div:last-child{
+    border-radius: 0 3px 3px 0;
+}
+
+.arrow_down {
+    background:url("./src/images/arrow_down.png");
+}
+
+.convert .currencies div:nth-child(even){
+    border-right: none;
+    border-left: none;
+    width: 52px;
+}
+
+input {
+    margin: 11px 14px;
+    height: 38px;
+    width: 230px;
+    font-size: 38px;
+    border: none;
+}
+
+.amount p {
+    margin: 11px 14px;
+}
+
+.progress{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 129px;
+    height: 54px;
+    background: white;
+    border: 1px solid black;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.change_button div p{
+    text-align: center;
+}
+
+.change_button:hover {
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity .15s;
+}
+
+.show {
+    display: flex;
+    transition: display 1s;
+}
+
+.hide {
+    display: none;
+}
+
+.table {
+    background: white;
+    justify-content: space-between;
+    border: 1px solid #C6C6C6;
+    width: 600px;
+    padding: 10px;
+    border-radius: 5px;;
+    box-shadow: 5px 5px 5px #C6C6C6;
+    position: absolute;
+    top: 10px;
+}
+
+.row {
+    overflow: hidden;
+    width: 187px;
+    font-size: 12px;
+    line-height: 26px;
+    border-radius: 3px;
+}
+.row:hover {
+    background: #833AE0;
+    color: white;
+    transition: background .5s;
+    cursor: pointer;
+}
+
+.row p {
+    margin: 0;
+    padding: 0 5px;
+}
+
+.full_name {
+    float: left;
+}
+
+.short_name {
+    float: right;
+    font-weight: 600;
+}
+
+.right {
+    left: 20px;
+}
+
+.arrow_up {
+    background: #833AE0;
+    background-image: url("./images/arrow_up.png");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.arrow_down {
+    background: url("./images/arrow_down.png") no-repeat center;
+}
+

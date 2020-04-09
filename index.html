@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ковертер валют</title>
+    <script src="dist/main.js" defer></script>
+    <link rel="stylesheet" href="src/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="progress hide"><p>Loading</p></div>
+<header class="header">
+
+    <img src="./src/images/bank_logo.png" alt="bank_logo" class="bank_logo">
+
+    <div class="menu">
+        <a href="#">БАНК</a>
+        <a href="#">БИЗНЕС</a>
+        <a href="#">ИНВЕСТИЦИИ</a>
+        <a href="#">СТРАХОВАНИЕ</a>
+        <a href="#">СТРАХОВАНИЕ</a>
+        <a href="#">ПУТЕШЕСТВИЯ</a>
+        <a href="#">РАЗВЛЕЧЕНИЯ</a>
+    </div>
+
+    <div class="button">
+        <a href="#">ВОЙТИ</a>
+    </div>
+
+</header>
+<main>
+    <div class="app">
+
+        <h1>Конвертер валют онлайн</h1>
+
+        <div class="container">
+
+            <div class="convert">
+                <p>У меня есть</p>
+                <div class="base currencies">
+                    <div class="choosen">RUB</div>
+                    <div>USD</div>
+                    <div>EUR</div>
+                    <div>GBP</div>
+                    <div class="arrow_down"></div>
+                </div>
+            </div>
+
+            <div class="convert">
+                <p>Хочу приобрести</p>
+                <div class="symbol currencies">
+                    <div>RUB</div>
+                    <div class="choosen">USD</div>
+                    <div>EUR</div>
+                    <div>GBP</div>
+                    <div class="arrow_down"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+
+            <div class="convert">
+                <div class="table hide">
+                    <div class="column">
+                        <div class="row">
+                            <p class="full_name">Российский рубль</p>
+                            <p class="short_name">RUB</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Доллар США</p>
+                            <p class="short_name">USD</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">ЕВРО</p>
+                            <p class="short_name">EUR</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Фунт стерлингов</p>
+                            <p class="short_name">GBP</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Австралийский доллар</p>
+                            <p class="short_name">AUD</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Гонконгский доллар</p>
+                            <p class="short_name">HKD</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Индонезийская рупия</p>
+                            <p class="short_name">IDR</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Израильский шекель</p>
+                            <p class="short_name">ILS</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Болгарский лев</p>
+                            <p class="short_name">BGN</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Бразильский реал</p>
+                            <p class="short_name">BRL</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Венгерский форинт</p>
+                            <p class="short_name">HUF</p>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="row">
+                            <p class="full_name">Вон Республики Корея</p>
+                            <p class="short_name">KRW</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Датская крона</p>
+                            <p class="short_name">DKK</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Индийская рупия</p>
+                            <p class="short_name">INR</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Мексиканское песо</p>
+                            <p class="short_name">MXN</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Канадский доллар</p>
+                            <p class="short_name">CAD</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Тайский бат</p>
+                            <p class="short_name">THB</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Китайский юань</p>
+                            <p class="short_name">CNY</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Хорватская куна</p>
+                            <p class="short_name">HRK</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Новый румынский лей</p>
+                            <p class="short_name">RON</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Малайзийский ринггит</p>
+                            <p class="short_name">MYR</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Норвежская крона</p>
+                            <p class="short_name">NOK</p>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="row">
+                            <p class="full_name">Польский злотый</p>
+                            <p class="short_name">PLN</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Сингапурский доллар</p>
+                            <p class="short_name">SGD</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Филиппинское песо</p>
+                            <p class="short_name">PHP</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Турецкая лира</p>
+                            <p class="short_name">TRY</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Исландская крона</p>
+                            <p class="short_name">ISK</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Новозеландский доллар</p>
+                            <p class="short_name">NZD</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Чешская крона</p>
+                            <p class="short_name">CZK</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Шведская крона</p>
+                            <p class="short_name">SEK</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Швейцарский франк</p>
+                            <p class="short_name">CHF</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Южноафриканский рэнд</p>
+                            <p class="short_name">ZAR</p>
+                        </div>
+                        <div class="row">
+                            <p class="full_name">Японская иена</p>
+                            <p class="short_name">JPY</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="amount">
+                    <div><input type="number" id="first_cur" value="1"></div>
+
+                    <p class="live_rate1"></p>
+                </div>
+
+            </div>
+
+
+            <div class="change_button">
+                <img src="./src/images/change_icon.png" alt="change_button">
+            </div>
+
+            <div class="convert">
+
+                <div class="amount">
+                    <div><input type="number" id="second_cur"></div>
+
+                    <p class="live_rate2"></p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+</body>
+</html>

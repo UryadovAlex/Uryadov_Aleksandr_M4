@@ -1,0 +1,25 @@
+{
+  "name": "Uryadov_Aleksandr_M4",
+  "version": "1.0.0",
+  "description": "testing npm",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "prettier:fix": "prettier \"index.js\" --write",
+    "build": "webpack",
+    "build:prod": "webpack --config webpack.prod.config.js"
+  },
+  "author": "Alexander",
+  "license": "ISC",
+  "dependencies": {
+    "dayjs": "^1.8.23"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "babel-loader": "^8.1.0",
+    "prettier": "^2.0.4",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  }
+}
