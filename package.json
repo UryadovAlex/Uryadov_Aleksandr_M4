@@ -2,10 +2,10 @@
   "name": "Uryadov_Aleksandr_M4",
   "version": "1.0.0",
   "description": "testing npm",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "node index.js",
-    "prettier:fix": "prettier \"index.js\" --write",
+    "start": "node src/index.js",
+    "prettier:fix": "prettier \"./src/index.js\" --write",
     "build": "webpack",
     "build:prod": "webpack --config webpack.prod.config.js"
   },
@@ -13,7 +13,9 @@
   "license": "ISC",
   "dependencies": {
     "chart.js": "^2.9.3",
-    "dayjs": "^1.8.23"
+    "dayjs": "^1.8.23",
+    "fetch": "^1.1.0",
+    "node-fetch": "^2.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

@@ -9,7 +9,52 @@ const rows = table.querySelectorAll('.row');
 const arrowFirst = document.querySelector('.base.currencies div:last-child');
 const arrowSecond = document.querySelector('.symbol.currencies div:last-child');
 
-function calculateFirstInput() {
+
+class RequestHandler {
+    constructor(updateTime) {
+        this.db = [];
+        this.updateTime = updateTime;
+    }
+
+    async getRate(symbol, base) {
+        const rate = this.db.find(objRate => objRate.name === symbol + base);
+        if (rate) {
+            if ((new Date().getTime() - rate.time) < this.updateTime) {
+                return rate;
+            } else {
+                const data = await this.requestRate(symbol, base);
+                rate.time = new Date.getTime();
+                rate.rate = data.rates[base];
+            }
+        } else {
+            const data = await this.requestRate(symbol, base);
+            const rate = {
+                name: symbol + base,
+                rate: data.rates[base],
+                time: new Date().getTime()
+            }
+            const reverseRate = {
+                name: base + symbol,
+                rate: 1 / data.rates[base],
+                time: new Date().getTime()
+            }
+            this.db.push(rate);
+            this.db.push(reverseRate);
+            return rate;
+        }
+    }
+
+    requestRate(symbol, base) {
+        return fetch(`https://api.ratesapi.io/api/latest?base=${symbol}&symbols=${base}`)
+            .then(response => response.json())
+            .then(data => data)
+            .catch(error => alert('Что-то пошло не так!'));
+    }
+}
+
+const requestHandler = new RequestHandler(300000);
+
+function calculate(event) {
     const base = document.querySelector('.base .choosen').innerHTML;
     const symbol = document.querySelector('.symbol .choosen').innerHTML;
     const live_rate1 = document.querySelector('.live_rate1');
@@ -21,54 +66,21 @@ function calculateFirstInput() {
     }
 
     emulateLoading();
-    fetch(`https://api.ratesapi.io/api/latest?base=${symbol}&symbols=${base}`)
-        .then(response => response.json())
+    requestHandler.getRate(symbol, base)
         .then(data => {
-            let rate = data.rates[base];
-            live_rate2.innerHTML = `1 ${symbol} = ${rate} ${base}`;
+            let rate = data.rate;
+            if (event.target !== document && event.target.classList.contains('right')) {
+                live_rate1.innerHTML = `1 ${symbol} = ${rate} ${base}`;
+                firstCur.value = (secondCur.value * rate).toFixed(4);
+                live_rate2.innerHTML = `1 ${base} = ${1 / rate} ${symbol}`;
+            } else {
+                live_rate2.innerHTML = `1 ${symbol} = ${rate} ${base}`;
+                secondCur.value = (firstCur.value * 1 / rate).toFixed(4);
+                live_rate1.innerHTML = `1 ${base} = ${1 / rate} ${symbol}`;
+            }
         })
-        .catch(error => alert('Что-то пошло не так!'))
-    fetch(`https://api.ratesapi.io/api/latest?base=${base}&symbols=${symbol}`)
-        .then(response => response.json())
-        .then(data => {
-            let rate = data.rates[symbol];
-            secondCur.value = (firstCur.value * rate).toFixed(4);
-            live_rate1.innerHTML = `1 ${base} = ${rate} ${symbol}`;
-        })
-        .catch(error => alert('Что-то пошло не так!'))
         .finally(emulateLoading);
 }
-
-function calculateSecondInput() {
-    const symbol = document.querySelector('.base .choosen').innerHTML;
-    const base = document.querySelector('.symbol .choosen').innerHTML;
-    const live_rate1 = document.querySelector('.live_rate1');
-    const live_rate2 = document.querySelector('.live_rate2');
-
-    if (base === symbol) {
-        firstCur.value = secondCur.value;
-        return;
-    }
-
-    emulateLoading();
-    fetch(`https://api.ratesapi.io/api/latest?base=${symbol}&symbols=${base}`)
-        .then(response => response.json())
-        .then(data => {
-            let rate = data.rates[base];
-            live_rate1.innerHTML = `1 ${symbol} = ${rate} ${base}`;
-        })
-        .catch(error => alert('Что-то пошло не так!'))
-    fetch(`https://api.ratesapi.io/api/latest?base=${base}&symbols=${symbol}`)
-        .then(response => response.json())
-        .then(data => {
-            let rate = data.rates[symbol];
-            firstCur.value = (secondCur.value * rate).toFixed(4);
-            live_rate2.innerHTML = `1 ${base} = ${rate} ${symbol}`;
-        })
-        .catch(error => alert('Что-то пошло не так!'))
-        .finally(emulateLoading);
-}
-
 
 function emulateLoading() {
     body.classList.toggle('loading');
@@ -77,49 +89,21 @@ function emulateLoading() {
     loading.classList.toggle('hide');
 }
 
-
-function chooseCurrencyBase(div) {
-    div.addEventListener('click', () => {
-        removeChoosenBase();
+function choose(div) {
+    div.addEventListener('click', (event) => {
+        div.parentElement.querySelectorAll('div:not(:last-child)').forEach(div => {
+            if (div.classList.contains('choosen')) {
+                div.classList.remove('choosen');
+                choosen = div;
+            }
+        });
         div.classList.add('choosen');
-        calculateFirstInput();
+        calculate(event);
     });
 }
-
-function removeChoosenBase() {
-    let choosen;
-    document.querySelectorAll('.base.currencies div').forEach(div => {
-        if (div.classList.contains('choosen')) {
-            div.classList.remove('choosen');
-            choosen = div;
-        }
-    });
-    return choosen;
-}
-
-
-function chooseCurrencySymbol(div) {
-    div.addEventListener('click', () => {
-        removeChoosenSymbol();
-        div.classList.add('choosen');
-        calculateSecondInput();
-    });
-}
-
-function removeChoosenSymbol() {
-    let choosen;
-    document.querySelectorAll('.symbol.currencies div').forEach(div => {
-        if (div.classList.contains('choosen')) {
-            div.classList.remove('choosen');
-            choosen = div;
-        }
-    });
-    return choosen;
-}
-
 
 rows.forEach(row => {
-    row.addEventListener('click', () => {
+    row.addEventListener('click', (event) => {
         let hasCurrency = false;
         const currency = row.querySelector('p:last-child').innerHTML;
         if (!table.classList.contains('right')) {
@@ -130,7 +114,7 @@ rows.forEach(row => {
                 const base = document.querySelector('.base .choosen');
                 base.innerHTML = currency;
                 arrowFirstAction();
-                calculateFirstInput();
+                calculate(event);
             } else {
                 alert('Валюта уже находится в списке. Выберите другую.');
             }
@@ -142,7 +126,7 @@ rows.forEach(row => {
                 const symbol = document.querySelector('.symbol .choosen');
                 symbol.innerHTML = currency;
                 arrowSecondAction();
-                calculateSecondInput();
+                calculate(event);
             } else {
                 alert('Валюта уже находится в списке. Выберите другую.');
             }
@@ -177,19 +161,20 @@ const arrowSecondAction = () => {
     }
 }
 
-changeButton.addEventListener('click', () => {
+changeButton.addEventListener('click', (event) => {
     let firstInputValue = firstCur.value;
     firstCur.value = secondCur.value;
     secondCur.value = firstInputValue;
-    const choosenBase = removeChoosenBase();
-    const choosenSymbol = removeChoosenSymbol();
+    const choosenBase = document.querySelector('.base.currencies > .choosen');
+    const choosenSymbol = document.querySelector('.symbol.currencies > .choosen');
+    choosenBase.classList.toggle('choosen');
+    choosenSymbol.classList.toggle('choosen');
     const base = choosenBase.innerHTML;
     const symbol = choosenSymbol.innerHTML;
 
     let isBaseClassAdded = false;
     document.querySelectorAll('.base.currencies div:not(:last-child)').forEach((div) => {
         if (div.innerHTML === symbol) {
-            console.log(div);
             div.classList.add('choosen');
             isBaseClassAdded = true;
         }
@@ -212,16 +197,15 @@ changeButton.addEventListener('click', () => {
         choosenSymbol.classList.add('choosen');
     }
 
-    calculateFirstInput();
+    calculate(event);
 });
 
-document.querySelectorAll('.base.currencies div:not(:last-child)').forEach(chooseCurrencyBase);
-document.querySelectorAll('.symbol.currencies div:not(:last-child)').forEach(chooseCurrencySymbol);
+document.querySelectorAll('.base.currencies div:not(:last-child)').forEach(choose);
+document.querySelectorAll('.symbol.currencies div:not(:last-child)').forEach(choose);
 
 arrowFirst.addEventListener('click', arrowFirstAction);
 arrowSecond.addEventListener('click', arrowSecondAction);
 
-window.addEventListener('load', calculateFirstInput);
-firstCur.addEventListener('change', calculateFirstInput);
-secondCur.addEventListener('change', calculateSecondInput);
-
+window.addEventListener('DOMContentLoaded', calculate)
+firstCur.addEventListener('change', calculate);
+secondCur.addEventListener('change', calculate);

@@ -1,7 +1,7 @@
 module.exports = {
     mode: 'development',
     watch: true,
-    entry: './index.js',
+    entry: './src/index.js',
     output: {
         filename: './main.js',
     }
