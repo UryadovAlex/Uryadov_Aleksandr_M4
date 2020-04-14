@@ -23,8 +23,9 @@ class RequestHandler {
                 return rate;
             } else {
                 const data = await this.requestRate(symbol, base);
-                rate.time = new Date.getTime();
+                rate.time = new Date().getTime();
                 rate.rate = data.rates[base];
+                return rate;
             }
         } else {
             const data = await this.requestRate(symbol, base);
