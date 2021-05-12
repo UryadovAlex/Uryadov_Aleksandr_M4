@@ -12,7 +12,7 @@
   "author": "Alexander",
   "license": "ISC",
   "dependencies": {
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "dayjs": "^1.8.23",
     "fetch": "^1.1.0",
     "node-fetch": "^2.6.0"
